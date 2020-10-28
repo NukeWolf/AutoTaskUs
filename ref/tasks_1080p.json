@@ -1,0 +1,22 @@
+{
+  "maps":
+  {
+    "Skeld":{
+      "tasks": {
+        "wiring":{
+          "locations":[],
+          "mousePos":{
+            "inwire1": [558,272],
+            "inwire2": [558,458],
+            "inwire3": [558,645],
+            "inwire4": [558,830],
+          },
+          "pixelData":[],
+          "funcCall":"wiring"
+        }
+      }
+    },
+    "Mira":{},
+    "Polus":{}
+  }
+}

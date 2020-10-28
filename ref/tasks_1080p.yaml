@@ -1,0 +1,38 @@
+---
+maps:
+  Skeld:
+    tasks:
+      wiring:
+        locations: []
+        mouseData:
+          #inwires are the pos of wires on the left side. Outwires are pos of wires on right side
+          inwire1: [558,272]
+          inwire2: [558,458]
+          inwire3: [558,645]
+          inwire4: [558,830]
+          outwire1: [1329,273]
+          outwire2: [1329,461]
+          outwire3: [1329,645]
+          outwire4: [1329,830]
+        pixelData: []
+        funcCall: wiring
+      cardSwipe:
+        locations: []
+        mouseData: 
+          cardPos: [850,820]
+          dragStart: [450,400]
+          dragEnd: [1450,400]
+        pixelData: []
+        funcCall: cardSwipe
+      cardSwipee:
+        locations: []
+        mouseData: []
+        pixelData: []
+        funcCall: cardSwipe
+      cardSwipeee:
+        locations: []
+        mouseData: []
+        pixelData: []
+        funcCall: cardSwipe  
+  Mira: {}
+  Polus: {}

@@ -9,10 +9,14 @@ Left to right
     should travel 200px in 1.95 seconds
         Tests:
         Brown travels an extra 9 frames than pressed.
+        Takes 7 frames to decelerate.
+
         897 -> 1108
         211 pixels traveled in 126 frames
 
-    
+        873 -> 1122
+        250px traveled in 122 frames
+            2.04 pixels per frame
 Up and Down
     speed 51 -> 85 in 20 frames
 
