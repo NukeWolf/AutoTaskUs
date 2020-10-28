@@ -1,11 +1,14 @@
 import pyautogui
 import time
+pyautogui.PAUSE = .03
 pyautogui.FAILSAFE = True
 # time.sleep(3)
 # print('down')
-# pyautogui.keyDown("w")
+# pyautogui.keyDown("d")
+# time.sleep(1.95)
 # print("up")
-# pyautogui.keyUp("w")
+
+pyautogui.keyUp("d")    
 
 def checkPos():
     while True:

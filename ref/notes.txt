@@ -1,0 +1,23 @@
+
+Left to right
+    speed 865 -> 868 1.7pixels per frame
+
+    speed 865 -> 892 4->20
+
+    speed 865 -> 967 after 60 frames
+
+    should travel 200px in 1.95 seconds
+        Tests:
+        Brown travels an extra 9 frames than pressed.
+        897 -> 1108
+        211 pixels traveled in 126 frames
+
+    
+Up and Down
+    speed 51 -> 85 in 20 frames
+
+
+Diagonal
+    996,349 -> 1020 374 in 20 frames
+        24 25             1.7675 pixels per frame diagonally
+        1.25 pixels per frame horizonntally and vertically
