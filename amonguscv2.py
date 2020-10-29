@@ -2,20 +2,30 @@ import numpy as np
 from PIL import ImageGrab
 import cv2
 import time
+import win32gui
+
 DEBUG = True
 
 #Grabs a screenshot and converts the format to RGB
 def grabScreen():
+    # hwnd = win32gui.FindWindow(None, r'Among Us')
+    # win32gui.SetForegroundWindow(hwnd)
+    # dimensions = win32gui.GetWindowRect(hwnd)
+    # print(dimensions)
+    # image = np.array(ImageGrab.grab(dimensions))
+    # image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+
     printscreen =  np.array(ImageGrab.grab(bbox=(0,0,1920,1080)))
     printscreen = cv2.cvtColor(printscreen, cv2.COLOR_BGR2RGB)
     return printscreen
 
 
 #Built for 1080p screensize, finds the players visor on the map and returns the location.
+#If having trouble finding the player, lower the threshhold
 def findPlayer(screen):
     template = cv2.imread('ref/player-template.png')
     res = cv2.matchTemplate(screen, template, cv2.TM_CCOEFF_NORMED)
-    threshold = .9
+    threshold = .87
     loc = np.where(res >= threshold)
     if (DEBUG):
         w, h = template.shape[:-1]
@@ -37,6 +47,27 @@ def findTasks(screen):
             cv2.rectangle(screen, pt, (pt[0] + w, pt[1] + h), (0, 0, 255), 2)
     return [pt for pt in zip(*loc[::-1])]
 
+    
+def checkPixel(screen,px,color):
+    compare_color = screen[px[1],px[0]]
+    #print(color,compare_color)
+    return np.array_equal(compare_color,color)
+
+def checkPixelRange(screen,px,upper,lower):
+    compare_color = screen[px[1],px[0]]
+    table = [lower[x]<=compare_color[x]<=upper[x] for x in range(3)]
+    return np.all(table)
+
+
+
+
+
+
+
+
+
+
+
 #Depricated method of finding the character by finding their color and creating a contour based off a filtered color mask.
 
 # #Finds a color on the map and then proceeds to find that color, and create a contour of it.
@@ -54,7 +85,6 @@ def findTasks(screen):
 #         x,y,w,h = cv2.boundingRect(c)
 #         if(w>=5 and h>=5):
 #             cv2.rectangle(img, (x, y), (x + w, y + h), (36,255,12), 2)
-
 
 
 

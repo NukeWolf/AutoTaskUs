@@ -25,3 +25,10 @@ Diagonal
     996,349 -> 1020 374 in 20 frames
         24 25             1.7675 pixels per frame diagonally
         1.25 pixels per frame horizonntally and vertically
+
+
+Divert Power:
+    19 - 113 - 209 - 308 - 404 - 505
+
+        94 - 96 - 99 - 96 -96
+    790 - >650 Drag up distance

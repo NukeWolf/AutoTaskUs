@@ -51,6 +51,10 @@ def travel(x,y,secs):
 def drag(start,end,secs):
     pyautogui.moveTo(start[0],start[1],duration=0)
     pyautogui.dragTo(end[0], end[1], duration=secs)
-
 def click(loc):
-    pyautogui.click(loc[0],loc[1])    
+    pyautogui.click(loc[0],loc[1])
+def dragAndHold(start,end,dragDuration,holdDuration):
+    pyautogui.mouseDown(x=start[0],y=start[1])
+    pyautogui.moveTo(end[0],end[1],dragDuration)
+    time.sleep(holdDuration)
+    pyautogui.mouseUp()

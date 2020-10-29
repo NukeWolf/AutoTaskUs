@@ -1,5 +1,6 @@
 ---
 maps:
+  #All Colors are in BGR Format
   Skeld:
     tasks:
       wiring:
@@ -19,20 +20,112 @@ maps:
       cardSwipe:
         locations: []
         mouseData: 
-          cardPos: [850,820]
-          dragStart: [450,400]
+          cardPos: [850,820] #Card in wallet click
+          dragStart: [450,400] 
           dragEnd: [1450,400]
         pixelData: []
         funcCall: cardSwipe
-      cardSwipee:
+      asteroids:
+        locations: []
+        mouseData: #Asteroids works by spamming mouse clicks down a line
+          screensize: 1920 #Function will take half of this to get middle of screen
+          startY: 140 #Where to start clicking/
+          endY: 941 # Where to stop.
+          step: 100 # How fast it clicks down the line
+        pixelData: 
+          whiteText: #Position of white text used to check if the task is done.
+            pos: [1090,884]
+            color: [255,255,255]
+        funcCall: asteroids
+      download:
+        locations: []
+        mouseData: [965,660] #Download Click
+        pixelData: []
+        funcCall: download
+      emptyGarbage:
+        locations: []
+        mouseData:
+          start: [1273,422]
+          end: [1273,924]
+          holdDuration: 1.8
+        pixelData: []
+        funcCall: emptyGarbage
+      divertPower:
+        locations: []
+        mouseData: 
+          start: [580,785] # Some point right before the first knob
+          dragDist: 140 # How far to drag up in pixels.
+          endx: 1391 #When to stop searching for the correct slider
+        pixelData: [0,0,100] #Color of the lit border
+        funcCall: divertPower
+      divertAccept:
+        locations: []
+        mouseData: [960,540] # Accept Click
+        pixelData: []
+        funcCall: divertAccept 
+      calibrateDistributor:
+        locations: []
+        mouseData: #The 3 calibrator click positions in a row.
+          - [1228,310]
+          - [1228,577]
+          - [1228,836]
+        pixelData:
+          check1:
+            pos: [1295,244]
+            color: [0,227,255]
+          check2:
+            pos: [1295,500]
+            color: [255,98,83]
+          check3:
+            pos: [1295,760]
+            color: [255,249,111]
+        funcCall: calibrateDistributor
+      alignEngine: #Similar process as divertpower
+        locations: []
+        mouseData: 
+          start: [1280,116] # Some point right before the first knob
+          destinationY: 540 # What Y it needs to drag to
+          endy: 955 #When to stop searching for the correct slider
+        pixelData: [216,202,202] #Color of the light gray part on the knob
+        funcCall: alignEngine 
+      medBayScan:
         locations: []
         mouseData: []
         pixelData: []
-        funcCall: cardSwipe
-      cardSwipeee:
+        funcCall: medBayScan
+      navigationChart:
+        locations: []
+        mouseData:
+          checkx1: 565 #The X position of every node
+          checkx2: 762
+          checkx3: 959
+          checkx4: 1155
+          checkx5: 1353
+          slopeOffset: 40 #How many pixels to the right extra to travel with each drag
+        pixelData: 
+          lowerColor: [0,0,0]   #Color range of the dark blue color of the nodes
+          upperColor: [190,130,50] #Still in BGR Format
+          starty: 265   #Range of y coordinates to scan
+          endy: 811
+        funcCall: navigationChart
+      navigationSteering:
+        locations: []
+        mouseData: [960,540] # Accept Click
+        pixelData: []
+        funcCall: navigationSteering 
+      clearFilter:
+        locations: []
+        mouseData: [624,541]  #Where to drag the leaves
+        pixelData:
+          topLeft: [697,99] # Box range of where the leaves spawn
+          botRight: [1400,980]
+          lowerColor: [0,60,60]  # Color range for the green on the leaves.
+          upperColor: [25,100,80]
+        funcCall: clearFilter
+      emeptyGarbage:
         locations: []
         mouseData: []
         pixelData: []
-        funcCall: cardSwipe  
+        funcCall: emptyGarbage                  
   Mira: {}
   Polus: {}
