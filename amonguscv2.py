@@ -20,12 +20,10 @@ def grabScreen():
     return printscreen
 
 
-#Built for 1080p screensize, finds the players visor on the map and returns the location.
-#If having trouble finding the player, lower the threshhold
-def findPlayer(screen):
-    template = cv2.imread('ref/player-template.png')
+#Given a screen,file,and threshold, will return a list of locations that the image is found
+def findImage(screen,file,threshold):
+    template = cv2.imread(file)
     res = cv2.matchTemplate(screen, template, cv2.TM_CCOEFF_NORMED)
-    threshold = .87
     loc = np.where(res >= threshold)
     if (DEBUG):
         w, h = template.shape[:-1]
@@ -33,21 +31,6 @@ def findPlayer(screen):
             cv2.rectangle(screen, pt, (pt[0] + w, pt[1] + h), (0, 200, 255), 2)
     return [pt for pt in zip(*loc[::-1])]            
 
-
-#Built for 1080p screen sizes, finds the task. If on a different resolution, mess with the threshold, 
-# and you may need a different screenshot, Gives you a list of locations for the task.
-def findTasks(screen):
-    template = cv2.imread('ref/task-template.png')
-    res = cv2.matchTemplate(screen, template, cv2.TM_CCOEFF_NORMED)
-    threshold = .9
-    loc = np.where(res >= threshold)
-    if (DEBUG):
-        w, h = template.shape[:-1]
-        for pt in zip(*loc[::-1]):  # Switch collumns and rows
-            cv2.rectangle(screen, pt, (pt[0] + w, pt[1] + h), (0, 0, 255), 2)
-    return [pt for pt in zip(*loc[::-1])]
-
-    
 def checkPixel(screen,px,color):
     compare_color = screen[px[1],px[0]]
     #print(color,compare_color)
@@ -85,7 +68,15 @@ def checkPixelRange(screen,px,upper,lower):
 #         x,y,w,h = cv2.boundingRect(c)
 #         if(w>=5 and h>=5):
 #             cv2.rectangle(img, (x, y), (x + w, y + h), (36,255,12), 2)
-
-
+# def findTasks(screen):
+#     template = cv2.imread('ref/task-template.png')
+#     res = cv2.matchTemplate(screen, template, cv2.TM_CCOEFF_NORMED)
+#     threshold = .9
+#     loc = np.where(res >= threshold)
+#     if (DEBUG):
+#         w, h = template.shape[:-1]
+#         for pt in zip(*loc[::-1]):  # Switch collumns and rows
+#             cv2.rectangle(screen, pt, (pt[0] + w, pt[1] + h), (0, 0, 255), 2)
+#     return [pt for pt in zip(*loc[::-1])]
 
 

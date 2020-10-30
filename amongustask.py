@@ -5,19 +5,19 @@ import yaml
 import time
 f = open("ref/tasks_1080p.yaml")
 data = yaml.load(f, Loader=yaml.FullLoader)
-testData = data['maps']['Skeld']['tasks']
+config = data['maps']['Skeld']['tasks']
+f.close()
 
+def getTask(loc):
+    for x in config:
+        for taskLoc in config[x]['locations']:
+            if (loc[0]-6 <= taskLoc[0] <= loc[0]+6 and loc[1]-6 <= taskLoc[1] <= loc[1]+6):
+                return config[x]
+    return None
 
-def findClosestTask(loc,tasks):
-    loc = loc[0]
-    minDist = 9999
-    minVal = []
-    for x,y in tasks:
-        dist = math.sqrt((y-loc[1]) ** 2 + (x-loc[0])**2)
-        if(dist<minDist):
-            minDist = dist
-            minVal = (x,y)
-    return minVal
+def getSamplesLoc():
+    return config['medBaySamples']['locations'][0]
+
 
 #For each wire in the left, it will compare colors to wires on the right and drag accordingly.
 def wiring(screen,mouseData,pixelData):
@@ -33,7 +33,7 @@ def wiring(screen,mouseData,pixelData):
 def cardSwipe(screen,mouseData,pixelData):
     auin.click(mouseData['cardPos'])
     time.sleep(.5)
-    auin.drag(mouseData['dragStart'],mouseData['dragEnd'],1.4)
+    auin.drag(mouseData['dragStart'],mouseData['dragEnd'],1.5)
 
 #Spam clicks in a line in order to destroy asteroids. Exits the loop once the "Destroyed" text goes away by 
 # checking a white pixel.
@@ -94,6 +94,7 @@ def medBayScan(screen,mouseData,pixelData):
     time.sleep(12)
 
 def navigationChart(screen,mouseData,pixelData):
+    screen = aucv.grabScreen()
     starty = pixelData['starty']
     endy = pixelData['endy']
     lower = pixelData['lowerColor']
@@ -117,6 +118,7 @@ def navigationSteering(screen,mouseData,pixelData):
     auin.click(mouseData)
     time.sleep(2)
 
+#Clear Filter needs a REDO Too Slow
 def clearFilter(screen,mouseData,pixelData):
     lower = pixelData['lowerColor']
     upper = pixelData['upperColor']
@@ -132,12 +134,66 @@ def clearFilter(screen,mouseData,pixelData):
                     leave = True
                     screen = aucv.grabScreen()
                     
+def reactorManifolds(screen,mouseData,pixelData):
+    directory = "ref/"
+    for x in range(1,11):
+        file = directory+str(x)+".png"
+        loc = aucv.findImage(screen,file,.9)
+        auin.click(loc[0])
+
+def startReactor(screen,mouseData,pixelData): 
+    keypad = []
+    tiles = []
+    step = mouseData['step']
+    for y in range(3):
+        for x in range(3):
+            keypad.append([mouseData['first'][0] + step*x,mouseData['first'][1] + step*y])
+            tiles.append([pixelData['firstTile'][0] + step*x,pixelData['firstTile'][1] + step*y])
+    for attempt in range(5):
+        password = []
+        counter = 0
+        while (counter<=attempt):
+            screen = aucv.grabScreen()
+            for ind in range(len(tiles)):
+                if(aucv.checkPixel(screen,tiles[ind],pixelData['color'])):
+                    password.append(keypad[ind])
+                    counter+=1
+                    time.sleep(pixelData['tileCooldown'])
+                    break
+        time.sleep(.05)
+        for loc in password:
+            auin.click(loc)
+
+def primeShields(screen,mouseData,pixelData):
+    lower = pixelData['lowerColor']
+    upper = pixelData['upperColor']
+    for loc in mouseData:
+        if(aucv.checkPixelRange(screen,loc,upper,lower)):
+            auin.click(loc)
+            time.sleep(pixelData['coolDown'])
+
+def fuelEngines(screen,mouseData,pixelData):
+    auin.hold(mouseData['pos'],mouseData['holdDuration'])
+
+def medBaySamples(screen,mouseData,pixelData):
+    posButton = pixelData['startButton']['pos']
+    if(aucv.checkPixel(screen,posButton,pixelData['startButton']['color'])):
+        vialStartX = pixelData['firstvial'][0]
+        vialStartY = pixelData['firstvial'][1]
+        step = mouseData['stepx']
+        compare = pixelData['redVialColor']
+        for x in range(5):
+            if(aucv.checkPixel(screen,[vialStartX+step*x,vialStartY],compare)):
+                buttonX = mouseData["firstButton"][0]
+                buttonY = mouseData["firstButton"][1]
+                auin.click([buttonX+step*x,buttonY])
+    else:
+        auin.click(posButton)
+        auin.click(mouseData['exitButton'])
 
 
-       
-                 
 
 
-time.sleep(3)
-fin = "clearFilter"
-eval(fin+"(aucv.grabScreen(),testData[\""+fin+"\"]['mouseData'],testData[\""+fin+"\"]['pixelData'])")
+time.sleep(1)
+fin = "medBaySamples"
+#eval(fin+"(aucv.grabScreen(),config[\""+fin+"\"]['mouseData'],config[\""+fin+"\"]['pixelData'])")

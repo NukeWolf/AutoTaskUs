@@ -10,7 +10,7 @@ def goto(loc,taskLoc):
     loc = loc[0]
     xDist = taskLoc[0] - loc[0] 
     yDist = taskLoc[1] - loc[1]
-    time.sleep(3)
+    time.sleep(1)
 
     if abs(xDist) < abs(yDist):
         diagdist = math.sqrt(2 * (xDist ** 2))
@@ -27,7 +27,6 @@ def goto(loc,taskLoc):
         lastdist = abs(xDist)-abs(yDist)
         secs = lastdist/SPEED
         travel(xDist,0,secs)
-    input()
 
 
 #Given 2 directions, and time, it will press down the neccessary keys for the specified amount of time.
@@ -51,10 +50,22 @@ def travel(x,y,secs):
 def drag(start,end,secs):
     pyautogui.moveTo(start[0],start[1],duration=0)
     pyautogui.dragTo(end[0], end[1], duration=secs)
+
 def click(loc):
     pyautogui.click(loc[0],loc[1])
+
 def dragAndHold(start,end,dragDuration,holdDuration):
     pyautogui.mouseDown(x=start[0],y=start[1])
     pyautogui.moveTo(end[0],end[1],dragDuration)
     time.sleep(holdDuration)
     pyautogui.mouseUp()
+
+def hold(loc,secs):
+    pyautogui.mouseDown(x=loc[0],y=loc[1])
+    time.sleep(secs)
+    pyautogui.mouseUp()
+
+def mapToggle():
+    pyautogui.press("tab")
+def doTask():
+    pyautogui.press("e")

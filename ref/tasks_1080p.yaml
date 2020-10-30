@@ -4,7 +4,13 @@ maps:
   Skeld:
     tasks:
       wiring:
-        locations: []
+        locations:  #Wiring has 6 Different Locations, but only 3 are selected in freeplay
+          - [413,472] #Security
+          - [734,598] #Electrical
+          - [834,70] #Cafeteria
+          - [971,641] #Storage
+          - [1107,547] #Admin
+          - [1644,436] #Navigation
         mouseData:
           #inwires are the pos of wires on the left side. Outwires are pos of wires on right side
           inwire1: [558,272]
@@ -18,7 +24,8 @@ maps:
         pixelData: []
         funcCall: wiring
       cardSwipe:
-        locations: []
+        locations: 
+          - [1280, 637]
         mouseData: 
           cardPos: [850,820] #Card in wallet click
           dragStart: [450,400] 
@@ -26,7 +33,8 @@ maps:
         pixelData: []
         funcCall: cardSwipe
       asteroids:
-        locations: []
+        locations:
+          - [1421, 210]
         mouseData: #Asteroids works by spamming mouse clicks down a line
           screensize: 1920 #Function will take half of this to get middle of screen
           startY: 140 #Where to start clicking/
@@ -38,20 +46,30 @@ maps:
             color: [255,255,255]
         funcCall: asteroids
       download:
-        locations: []
+        locations:
+          - [1192,84]
+          - [1404,124]
+          - [1745,384]
+          - [1209,855]
+          - [1152,541]
+          - [651,583]
         mouseData: [965,660] #Download Click
         pixelData: []
         funcCall: download
       emptyGarbage:
-        locations: []
+        locations:
+          - [1233,122]
+          - [1250,419]
+          - [1084,966]
         mouseData:
           start: [1273,422]
           end: [1273,924]
-          holdDuration: 1.8
+          holdDuration: 1.4
         pixelData: []
         funcCall: emptyGarbage
       divertPower:
-        locations: []
+        locations: 
+          - [682,583]
         mouseData: 
           start: [580,785] # Some point right before the first knob
           dragDist: 140 # How far to drag up in pixels.
@@ -59,12 +77,22 @@ maps:
         pixelData: [0,0,100] #Color of the lit border
         funcCall: divertPower
       divertAccept:
-        locations: []
+        locations: 
+          - [314,660]
+          - [556,407]
+          - [345,155]
+          - [1518,199]
+          - [1393,385]
+          - [1302,858] #Communications
+          - [1705,384]
+          - [1488,699]
+          - [1302,681]
         mouseData: [960,540] # Accept Click
         pixelData: []
         funcCall: divertAccept 
       calibrateDistributor:
-        locations: []
+        locations:
+          - [810,591]
         mouseData: #The 3 calibrator click positions in a row.
           - [1228,310]
           - [1228,577]
@@ -81,7 +109,9 @@ maps:
             color: [255,249,111]
         funcCall: calibrateDistributor
       alignEngine: #Similar process as divertpower
-        locations: []
+        locations: 
+          - [266,801]
+          - [266,299]
         mouseData: 
           start: [1280,116] # Some point right before the first knob
           destinationY: 540 # What Y it needs to drag to
@@ -89,12 +119,28 @@ maps:
         pixelData: [216,202,202] #Color of the light gray part on the knob
         funcCall: alignEngine 
       medBayScan:
-        locations: []
+        locations:
+          - [750,498]
         mouseData: []
         pixelData: []
         funcCall: medBayScan
+      medBaySamples:
+        locations:
+        - [798,459]
+        mouseData:
+          firstButton: [732,848] #Position of the first button to choose
+          stepx: 112 #Distance between middle of each vial.
+          exitButton: [467,133] # Button to quit a task
+        pixelData: 
+          startButton: 
+            pos: [1258,934] #Position and Color of button when you come back
+            color: [189,189,189]
+          firstvial: [733,590] #Position of the middle of the first vial
+          redVialColor: [134,134,246] # Color of the red vial
+        funcCall: medBaySamples
       navigationChart:
-        locations: []
+        locations: 
+          - [1789, 420] 
         mouseData:
           checkx1: 565 #The X position of every node
           checkx2: 762
@@ -105,16 +151,18 @@ maps:
         pixelData: 
           lowerColor: [0,0,0]   #Color range of the dark blue color of the nodes
           upperColor: [190,130,50] #Still in BGR Format
-          starty: 265   #Range of y coordinates to scan
+          starty: 270   #Range of y coordinates to scan
           endy: 811
         funcCall: navigationChart
       navigationSteering:
-        locations: []
+        locations: 
+          - [1816,478] 
         mouseData: [960,540] # Accept Click
         pixelData: []
         funcCall: navigationSteering 
       clearFilter:
-        locations: []
+        locations:
+          - [1285,407]
         mouseData: [624,541]  #Where to drag the leaves
         pixelData:
           topLeft: [697,99] # Box range of where the leaves spawn
@@ -122,10 +170,55 @@ maps:
           lowerColor: [0,60,60]  # Color range for the green on the leaves.
           upperColor: [25,100,80]
         funcCall: clearFilter
-      emeptyGarbage:
-        locations: []
+      reactorManifolds:
+        locations: 
+          - [128,387]
         mouseData: []
+        pixelData: 1080 #Resolution of game
+        funcCall: reactorManifolds
+      startReactor:
+        locations: 
+          - [158,512]
+        mouseData: 
+          first: [1134,472]
+          step: 126
+        pixelData: 
+          firstTile: [525,472] 
+          color: [255,168,68]
+          tileCooldown: .24 #The time it takes for a tile to go from on to off
+        funcCall: startReactor
+      primeShields:
+        locations:
+          - [1358,856]
+        mouseData:
+          - [897,178]  #Top Left Corner of each hex, going clockwise,
+          - [1111,302] #Starting from the north,ending in the middle. Order really doesn't matter.
+          - [1112,556]
+          - [897,681]
+          - [667,555]
+          - [678,299]
+          - [897, 426]
+        pixelData:
+          upperColor: [40,40,255] #Range of the Red Color
+          lowerColor: [0,0, 230]
+          coolDown: .03 #Time between clicks
+        funcCall: primeShields
+      fuelEngines:
+        locations: 
+          - [933,853]
+          - [300,298]
+          - [301,797]
+        mouseData: 
+          pos: [1462,871]
+          holdDuration: 3.5
         pixelData: []
-        funcCall: emptyGarbage                  
+        funcCall: fuelEngines                
   Mira: {}
   Polus: {}
+misc:
+  checkMap:
+    pos: [147,146] #The X at the top left
+    color: [51,51,51]
+  useButton: #Check if the button is lit up
+    pos: [1791,865] 
+    color: [255,255,255]

@@ -28,7 +28,22 @@ Diagonal
 
 
 Divert Power:
-    19 - 113 - 209 - 308 - 404 - 505
+    19 - 113 - 209 - 308 - 404 - 505 - slider x positions
 
         94 - 96 - 99 - 96 -96
     790 - >650 Drag up distance
+
+O2 Filter:
+    Edge of leaves is 55,24,31
+    green is 71,71, 19
+
+Start Reactor
+    Timings:
+    Tiles last for 14 frames
+    6 Frames in between tiles
+    Keypads available 8 frames after the last tile
+
+    1182 -> 1256 74 Frames from keypad press to start of next tile
+
+MedBay Sample
+    708 -> 820 begin
