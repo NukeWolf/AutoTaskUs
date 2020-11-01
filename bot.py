@@ -11,14 +11,15 @@ def run():
     screen = aucv.grabScreen()
     if(not aumap.checkMapOn(screen)):
         auin.mapToggle()
+        time.sleep(.1)
         screen = aucv.grabScreen()
-
     #Gets Player location. If it can't see the player, adjust and try again.   
     player = aucv.findImage(screen,"ref/player-template.png",.87)
     while (len(player) == 0):
         auin.travel(0,-1,.2)
         if(not aumap.checkMapOn(screen)):
             auin.mapToggle()
+            time.sleep(.1)
         screen = aucv.grabScreen()
         player = aucv.findImage(screen,"ref/player-template.png",.87)
     
@@ -32,12 +33,10 @@ def run():
     if(time.time()-medBayLastDone < 60):
         samples = autask.getSamplesLoc()
         tasks = [x for x in moreTasks if not(samples[0]-6 <= x[0] <= samples[0]+6 and samples[1]-6 <= x[1] <= samples[1]+6)]
-        print(tasks)
     #If there are any Tasks, find the closest one, goto it, and then perform it.
     if(len(tasks) > 0):
         closeTask = aumap.findClosestTask(player,tasks)
         auin.goto(player,closeTask)
-
         task = autask.getTask(closeTask)
         if task == None:
             print("Can't Find Task")
@@ -45,22 +44,56 @@ def run():
             #Exception for Medbay Samples
             if(task['funcCall'] == "medBaySamples"):
                 medBayLastDone = time.time()
-            print(f"Doing Task {task['funcCall']}")
+            
             functionCall = getattr(autask,task['funcCall'])
-            auin.mapToggle()
+            if(aumap.checkMapOn(screen)):
+                auin.mapToggle()
+            time.sleep(.05)
             screen = aucv.grabScreen()
             if(aumap.checkUse(screen)):
+                print(f"Doing Task {task['funcCall']}")
                 auin.doTask()
                 time.sleep(.4)
                 screen = aucv.grabScreen()
                 functionCall(screen,task['mouseData'],task['pixelData'])
+                time.sleep(.3)
+            else:
+                print("Use not Found")
 
+
+def speedCalibrate():
+    screen = aucv.grabScreen()
+    if(not aumap.checkMapOn(screen)):
+        auin.mapToggle()
+        time.sleep(.1)
+        screen = aucv.grabScreen()
+    
+    mapCheck = True
+    while(mapCheck):
+        player = aucv.findImage(screen,"ref/player-template.png",.87)
+        while (len(player) == 0):
+            auin.travel(0,1,.2)
+            if(not aumap.checkMapOn(screen)):
+                auin.mapToggle()
+                time.sleep(.1)
+            screen = aucv.grabScreen()
+            player = aucv.findImage(screen,"ref/player-template.png",.87)
+
+        lastY = player[0][1]
+        auin.travel(0,1,1)
+        screen = aucv.grabScreen()
+        player = aucv.findImage(screen,"ref/player-template.png",.87)
+        if(len(player)>=1): 
+            auin.SPEED = abs(lastY-player[0][1]) 
+            mapCheck=False
+            print(auin.SPEED)
 
 
 if __name__ == "__main__":
     time.sleep(1)
     global medBayLastDone
     medBayLastDone = 0
+    speedCalibrate()
     while True:
         try:
             run()

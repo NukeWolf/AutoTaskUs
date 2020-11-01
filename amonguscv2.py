@@ -2,7 +2,7 @@ import numpy as np
 from PIL import ImageGrab
 import cv2
 import time
-import win32gui
+#import win32gui
 
 DEBUG = True
 

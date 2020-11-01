@@ -21,7 +21,10 @@ maps:
           outwire2: [1329,461]
           outwire3: [1329,645]
           outwire4: [1329,830]
-        pixelData: []
+        pixelData: 
+          taskCheck: #Detecting Black outline of the wire
+            pos: [540,627]
+            color: [0,0,0]
         funcCall: wiring
       cardSwipe:
         locations: 
@@ -54,7 +57,11 @@ maps:
           - [1152,541]
           - [651,583]
         mouseData: [965,660] #Download Click
-        pixelData: []
+        pixelData: 
+          sleepDuration: 10
+          taskCheck: #Detects the right folder, darker shade
+            pos: [1192,444]
+            color: [161,212,241]
         funcCall: download
       emptyGarbage:
         locations:
@@ -65,7 +72,10 @@ maps:
           start: [1273,422]
           end: [1273,924]
           holdDuration: 1.4
-        pixelData: []
+        pixelData:
+          taskCheck: #Detects the black line seperating the lever and leaves
+            pos: [1140,104]
+            color: [0,0,0]
         funcCall: emptyGarbage
       divertPower:
         locations: 
@@ -122,7 +132,10 @@ maps:
         locations:
           - [750,498]
         mouseData: []
-        pixelData: []
+        pixelData: 
+          taskCheck:
+              pos: [1140,244]
+              color: [0,0,0]
         funcCall: medBayScan
       medBaySamples:
         locations:
@@ -130,7 +143,6 @@ maps:
         mouseData:
           firstButton: [732,848] #Position of the first button to choose
           stepx: 112 #Distance between middle of each vial.
-          exitButton: [467,133] # Button to quit a task
         pixelData: 
           startButton: 
             pos: [1258,934] #Position and Color of button when you come back
@@ -169,6 +181,9 @@ maps:
           botRight: [1400,980]
           lowerColor: [0,60,60]  # Color range for the green on the leaves.
           upperColor: [25,100,80]
+          taskCheck: # Used to check if on right task. Detects The top of black line in the middle
+            pos: [694,100]
+            color: [0,0,0]
         funcCall: clearFilter
       reactorManifolds:
         locations: 
@@ -222,3 +237,4 @@ misc:
   useButton: #Check if the button is lit up
     pos: [1791,865] 
     color: [255,255,255]
+  exitButton: [467,133] # Button to quit a task

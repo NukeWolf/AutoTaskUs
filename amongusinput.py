@@ -2,7 +2,7 @@ import math
 import time
 import pyautogui
 #pixels per second
-SPEED = 125
+SPEED = 125 # 125 1x Speed
 pyautogui.PAUSE = .03
 
 #Given a starting point and a destination, it will input the commands to travel to go from one point to another.
@@ -11,7 +11,6 @@ def goto(loc,taskLoc):
     xDist = taskLoc[0] - loc[0] 
     yDist = taskLoc[1] - loc[1]
     time.sleep(1)
-
     if abs(xDist) < abs(yDist):
         diagdist = math.sqrt(2 * (xDist ** 2))
 

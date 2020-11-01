@@ -4,23 +4,36 @@ import amonguscv2 as aucv
 import yaml
 import time
 f = open("ref/tasks_1080p.yaml")
-data = yaml.load(f, Loader=yaml.FullLoader)
-config = data['maps']['Skeld']['tasks']
+DATA = yaml.load(f, Loader=yaml.FullLoader)
+CONFIG = DATA['maps']['Skeld']['tasks']
 f.close()
 
 def getTask(loc):
-    for x in config:
-        for taskLoc in config[x]['locations']:
+    for x in CONFIG:
+        for taskLoc in CONFIG[x]['locations']:
             if (loc[0]-6 <= taskLoc[0] <= loc[0]+6 and loc[1]-6 <= taskLoc[1] <= loc[1]+6):
-                return config[x]
+                return CONFIG[x]
     return None
 
 def getSamplesLoc():
-    return config['medBaySamples']['locations'][0]
+    return CONFIG['medBaySamples']['locations'][0]
+
+def closeTask():
+    auin.click(DATA['misc']['exitButton'])
+
+def taskCheck(screen,pixelData):
+    if(aucv.checkPixel(screen,pixelData["taskCheck"]["pos"],pixelData["taskCheck"]["color"])):
+        return True
+    else:
+        closeTask()
+        return False 
+
 
 
 #For each wire in the left, it will compare colors to wires on the right and drag accordingly.
 def wiring(screen,mouseData,pixelData):
+    if(not taskCheck(screen,pixelData)):
+        return
     for x in range(1,5): 
         check1 = mouseData['inwire'+str(x)]
         color1 = screen[check1[1],check1[0]]
@@ -53,12 +66,18 @@ def asteroids(screen,mouseData,pixelData):
 
 #Clicks a download button and then sleeps.
 def download(screen,mouseData,pixelData):
+    if(not taskCheck(screen,pixelData)):
+        return
     auin.click(mouseData)
-    time.sleep(12)
-    print("Done")
+    time.sleep(pixelData['sleepDuration'])
+
+#Drags and keeps the mouse down
 def emptyGarbage(screen,mouseData,pixelData):
+    if(not taskCheck(screen,pixelData)):
+        return
     auin.dragAndHold(mouseData['start'],mouseData['end'],.5,mouseData['holdDuration'])
 
+#Checks a horizontal line of pixels for the lit up slider, then drags it up.
 def divertPower(screen,mouseData,pixelData):
     startx = mouseData['start'][0]
     starty = mouseData['start'][1]
@@ -72,6 +91,7 @@ def divertAccept(screen,mouseData,pixelData):
     auin.click(mouseData)
     time.sleep(2)
 
+#For each calibrate, it checks for a pixel in the bar, and clicks when lit up.
 def calibrateDistributor(screen,mouseData,pixelData):
     for x in range(1,4):
         while True:
@@ -90,7 +110,10 @@ def alignEngine(screen,mouseData,pixelData):
         if(aucv.checkPixel(screen,[startx,y],pixelData)):
             auin.drag([startx,y],[startx,destY],.7)
             break
+
 def medBayScan(screen,mouseData,pixelData):
+    if(not taskCheck(screen,pixelData)):
+        return
     time.sleep(12)
 
 def navigationChart(screen,mouseData,pixelData):
@@ -114,12 +137,13 @@ def navigationChart(screen,mouseData,pixelData):
                 break
 
 def navigationSteering(screen,mouseData,pixelData):
-    auin.click(mouseData)
-    auin.click(mouseData)
+    auin.drag(mouseData,mouseData,.3)
     time.sleep(2)
 
 #Clear Filter needs a REDO Too Slow
 def clearFilter(screen,mouseData,pixelData):
+    if(not taskCheck(screen,pixelData)):
+        return
     lower = pixelData['lowerColor']
     upper = pixelData['upperColor']
     leave = True
@@ -138,8 +162,11 @@ def reactorManifolds(screen,mouseData,pixelData):
     directory = "ref/"
     for x in range(1,11):
         file = directory+str(x)+".png"
-        loc = aucv.findImage(screen,file,.9)
-        auin.click(loc[0])
+        loc = aucv.findImage(screen,file,.8)
+        if(len(loc)>=1):
+            auin.click(loc[0])
+        else:
+            screen = aucv.grabScreen()
 
 def startReactor(screen,mouseData,pixelData): 
     keypad = []
@@ -176,6 +203,8 @@ def fuelEngines(screen,mouseData,pixelData):
     auin.hold(mouseData['pos'],mouseData['holdDuration'])
 
 def medBaySamples(screen,mouseData,pixelData):
+    time.sleep(.5) #Make sure the button is the right color
+    screen = aucv.grabScreen()     
     posButton = pixelData['startButton']['pos']
     if(aucv.checkPixel(screen,posButton,pixelData['startButton']['color'])):
         vialStartX = pixelData['firstvial'][0]
@@ -189,11 +218,11 @@ def medBaySamples(screen,mouseData,pixelData):
                 auin.click([buttonX+step*x,buttonY])
     else:
         auin.click(posButton)
-        auin.click(mouseData['exitButton'])
+        closeTask()
 
 
 
 
 time.sleep(1)
-fin = "medBaySamples"
-#eval(fin+"(aucv.grabScreen(),config[\""+fin+"\"]['mouseData'],config[\""+fin+"\"]['pixelData'])")
+fin = "wiring"
+eval(fin+"(aucv.grabScreen(),CONFIG[\""+fin+"\"]['mouseData'],CONFIG[\""+fin+"\"]['pixelData'])")
