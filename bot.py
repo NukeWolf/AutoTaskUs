@@ -87,16 +87,17 @@ def speedCalibrate():
             auin.SPEED = abs(lastY-player[0][1]) 
             mapCheck=False
             print(auin.SPEED)
-
-
-if __name__ == "__main__":
-    time.sleep(1)
+def start():
+    time.sleep(2)
     global medBayLastDone
     medBayLastDone = 0
     speedCalibrate()
     while True:
         try:
             run()
-        except:
-            print("Unexpected error:")
+        except Exception as e:
+            print("Unexpected error:",e)
             raise
+
+if __name__ == "__main__":
+    start()
