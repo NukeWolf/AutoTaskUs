@@ -22,4 +22,6 @@ The code only currently works on one map, Skald and also only supports one resol
 
 Download source code and start the main.py file.
 
-## Demo Coming Soon
+## Demo 
+
+[![AutoTaskUsDemo](http://img.youtube.com/vi/YLdDvTg6-W4/0.jpg)](https://youtu.be/YLdDvTg6-W4 "AutoTaskUs demo")
