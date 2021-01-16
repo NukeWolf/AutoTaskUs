@@ -190,6 +190,7 @@ def startReactor(screen,mouseData,pixelData):
         time.sleep(.05)
         for loc in password:
             auin.click(loc)
+            time.sleep(.02)
 
 def primeShields(screen,mouseData,pixelData):
     lower = pixelData['lowerColor']
@@ -224,5 +225,5 @@ def medBaySamples(screen,mouseData,pixelData):
 
 
 time.sleep(1)
-fin = "wiring"
-eval(fin+"(aucv.grabScreen(),CONFIG[\""+fin+"\"]['mouseData'],CONFIG[\""+fin+"\"]['pixelData'])")
+#fin = "reactorManifolds"
+#eval(fin+"(aucv.grabScreen(),CONFIG[\""+fin+"\"]['mouseData'],CONFIG[\""+fin+"\"]['pixelData'])")
