@@ -20,7 +20,7 @@ The code only currently works on one map, Skald and also only supports one resol
 
 ## Setup
 
-Download source code and start the main.py file.
+Download source code, install requirements.txt, and run the bot.py file.
 
 ## Demo 
 
