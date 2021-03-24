@@ -1,5 +1,9 @@
 # AutoTaskUs
 
+## Demo 
+
+[![AutoTaskUsDemo](http://img.youtube.com/vi/YLdDvTg6-W4/0.jpg)](https://youtu.be/YLdDvTg6-W4 "AutoTaskUs demo")
+
 > Hello, thanks for visiting my project. This project was built because I really wanted to leave my desk when I was playing among us, and theres often not a lot of downtime while playing the game, as even if you're dead, you still have to do tasks. This project plays the game for me.
 
 ## General
@@ -22,6 +26,3 @@ The code only currently works on one map, Skald and also only supports one resol
 
 Download source code, install requirements.txt, and run the bot.py file.
 
-## Demo 
-
-[![AutoTaskUsDemo](http://img.youtube.com/vi/YLdDvTg6-W4/0.jpg)](https://youtu.be/YLdDvTg6-W4 "AutoTaskUs demo")
